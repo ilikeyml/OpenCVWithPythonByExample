@@ -1,10 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Config</title>
-</head>
-<body>
-Config
-</body>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Opencvwithpythonbyexample : Build real-world computer vision applications and develop cool demos using OpenCV for Python">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Opencvwithpythonbyexample</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ilikeyml/OpenCVWithPythonByExample">View on GitHub</a>
+          <h1 id="project_title">Opencvwithpythonbyexample</h1>
+          <h2 id="project_tagline">Build real-world computer vision applications and develop cool demos using OpenCV for Python</h2>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="opencvwithpythonbyexample" class="anchor" href="#opencvwithpythonbyexample" aria-hidden="true"><span class="octicon octicon-link"></span></a>OpenCVWithPythonByExample</h1>
+<h2>Development Environment Configuration 开发环境配置</h2>
+<p><strong>1.安装OpenCV</strong><br>
+-通过 <em>OpenCV</em> 官网下载 <em>OpenCV</em> 源码以及编译文件，下载地址  <a href="http://opencv.org/" title="opencv" target="_blank">http://opencv.org/</a> <br>
+<img src="accessories/opencvdownload.png" alt="&quot;OpenCV Download&quot;"> <br>
+选择合适的平台版本<br>
+-文件下载完成，解压后在 <em>"..opencv\build\python\2.7"</em> 文件下找到合适的文件 <em>"(X86/X64)cv2.pyd"</em> <em>(windows platform)</em></p>
+<p>-将 <em>cv2.pyd</em> 文件拷贝到 <em>"..\Python27\Lib\site-packages"</em>
+</p>
+<p>-<em>OpenCV</em> 安装完成</p>
+<p>*此时如果在python中调用<br>
+<code>img = cv2.imread("ImageSource/scene.jpg")</code><br>
+<code>type(img)</code><br>
+输出的结果是 <em>&lt;type 'numpy.ndarray'&gt;</em><br>
+为了对 <em>"numpy.ndarray"</em> 数据类型进行处理，需要安装numpy<br>
+<strong>2.安装numpy</strong><br>
+从下面链接下载Windows版本的numpy <a href="http://sourceforge.net/projects/numpy/files/NumPy/1.10.1/" target="_blank">numpy download</a>, 直接安装。<br>
+安装完成后，在python中输入<code>import numpy</code> 测试安装是否成功<br>
+以上， <em>OpenCV for Python</em> 安装完成</p>
+      </section>
+    </div>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Opencvwithpythonbyexample maintained by <a href="https://github.com/ilikeyml">ilikeyml</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+  </body>
 </html>
