@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Opencvwithpythonbyexample : Build real-world computer vision applications and develop cool demos using OpenCV for Python">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <title>OpenCV With Python By Example</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ilikeyml/OpenCVWithPythonByExample">View on GitHub</a>
+          <a href="http://ilikeyml.github.io/OpenCVWithPythonByExample/"><h1 id="project_title">OpenCV With Python By Example</h1></a>
+          <h2 id="project_tagline">Build real-world computer vision applications and develop cool demos using OpenCV for Python</h2>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+<h2>边缘检测</h2>
+<p><strong>1.Blur</strong><br>
+在图像处理中，我们把区域内引起灰度值大幅度变化的部分称为：高频。<br>
+Blur的作用类似于低通滤波 <em>(Low Pass Filter)</em> ，将区域内边缘部分平滑化，即去除高频部分。 <br>
+<em>Blur Kernel(3*3)</em>
+</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=L=\frac{1}{9}\begin{bmatrix}&amp;space;1&amp;space;&amp;&amp;space;1&amp;space;&amp;1&amp;space;\\&amp;space;1&amp;space;&amp;&amp;space;1&amp;space;&amp;1&amp;space;\\&amp;space;1&amp;&amp;space;1&amp;space;&amp;1&amp;space;\end{bmatrix}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?L=\frac{1}{9}\begin{bmatrix}&amp;space;1&amp;space;&amp;&amp;space;1&amp;space;&amp;1&amp;space;\\&amp;space;1&amp;space;&amp;&amp;space;1&amp;space;&amp;1&amp;space;\\&amp;space;1&amp;&amp;space;1&amp;space;&amp;1&amp;space;\end{bmatrix}" title="L=\frac{1}{9}\begin{bmatrix} 1 &amp; 1 &amp;1 \\ 1 &amp; 1 &amp;1 \\ 1&amp; 1 &amp;1 \end{bmatrix}"></a>
+</p>
+<ul>
+<li>使用自定义 <em>Kernel</em> 对图像滤波<br>
+<code>import cv2 as cv</code><br>
+<code>import numpy as np</code><br>
+<code>img = cv.imread("..\ImageSource\Sample\lena_color.tiff", 0)</code><br>
+<code>cv.imshow("in", img)</code><br>
+<code>kernel_3x3 = np.ones((3, 3), np.float)/9.0</code><br>
+<code>img_out = cv.filter2D(img, -1, kernel_3x3)</code><br>
+<code>cv.imshow("Blur_3x3", img_out)</code>
+</li>
+</ul>
+<p><em>Origin</em><br>
+<img src="accessories/lena.png" alt="&quot;lena&quot;"><br>
+<em>Blur3x3</em><br>
+ <img src="accessories/lena_3x3.png" alt="&quot;lena&quot;"></p>
+<ul>
+<li>直接调用Blur函数<br>
+<code>img_blur = cv.blur(img, (3, 3))</code><br>
+<code>cv.imshow("Img_Blur", img_blur)</code></li>
+</ul>
+<p><em>Blur()</em><br>
+ <img src="accessories/lena_Blur.png" alt="&quot;lena&quot;"></p>
+<p><strong><em>2.Sobel</em></strong><br>
+<em>Sobel</em> 一阶微分，提取轮廓 <br>
+由于 <em>Edge</em> 会出现在 <em>X,Y</em> 方向上， <em>Sobel</em> 算子使用 <em>X,Y</em> 两个方向上的<em>Kernel</em>
+</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=S_x&amp;space;=&amp;space;\begin{bmatrix}&amp;space;-1&amp;space;&amp;&amp;space;0&amp;space;&amp;&amp;space;1\\&amp;space;-2&amp;&amp;space;0&amp;space;&amp;2&amp;space;\\&amp;space;-1&amp;&amp;space;0&amp;space;&amp;&amp;space;1&amp;space;\end{bmatrix}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?S_x&amp;space;=&amp;space;\begin{bmatrix}&amp;space;-1&amp;space;&amp;&amp;space;0&amp;space;&amp;&amp;space;1\\&amp;space;-2&amp;&amp;space;0&amp;space;&amp;2&amp;space;\\&amp;space;-1&amp;&amp;space;0&amp;space;&amp;&amp;space;1&amp;space;\end{bmatrix}" title="S_x = \begin{bmatrix} -1 &amp; 0 &amp; 1\\ -2&amp; 0 &amp;2 \\ -1&amp; 0 &amp; 1 \end{bmatrix}"></a>
+</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=S_y&amp;space;=&amp;space;\begin{bmatrix}&amp;space;-1&amp;space;&amp;&amp;space;-2&amp;space;&amp;&amp;space;-1\\&amp;space;0&amp;&amp;space;0&amp;space;&amp;0&amp;space;\\&amp;space;1&amp;&amp;space;2&amp;space;&amp;&amp;space;1&amp;space;\end{bmatrix}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?S_y&amp;space;=&amp;space;\begin{bmatrix}&amp;space;-1&amp;space;&amp;&amp;space;-2&amp;space;&amp;&amp;space;-1\\&amp;space;0&amp;&amp;space;0&amp;space;&amp;0&amp;space;\\&amp;space;1&amp;&amp;space;2&amp;space;&amp;&amp;space;1&amp;space;\end{bmatrix}" title="S_y = \begin{bmatrix} -1 &amp; -2 &amp; -1\\ 0&amp; 0 &amp;0 \\ 1&amp; 2 &amp; 1 \end{bmatrix}"></a>
+</p>
+<p>使用这两个<em>kernel</em>对图像进行处理<br>
+<code>img = cv.imread("..\ImageSource\shape.png", 0)</code><br>
+<code>cv.imshow("in", img)</code><br>
+<code>sobel_H = cv.Sobel(img, cv.CV_64F, 1, 0)</code><br>
+<code>sobel_V = cv.Sobel(img, cv.CV_64F, 0, 1)</code><br>
+<code>cv.imshow("H", sobel_H)</code><br>
+<code>cv.imshow("V", sobel_V)</code><br>
+<em>Origin</em><br>
+ <img src="accessories/sobel_origin.png" alt="&quot;shape&quot;"><br>
+<em>Vertical</em><br>
+ <img src="accessories/sobel_v.png" alt="&quot;shape&quot;"> <br>
+<em>Horizontal</em><br>
+ <img src="accessories/sobel_h.png" alt="&quot;shape&quot;">
+</p>
+<p>可以明显看到，对两个方向上分别运算，结果会出现某个方向上的缺失。<br>
+使用二阶微分<em>Laplacian</em>算子，可以同时对两个方向上进行滤波 <br>
+<code>laplacian_img = cv.Laplacian(img, cv.CV_64F)</code><br>
+<code>cv.imshow("Laplacian", laplacian_img)</code><br>
+<img src="accessories/laplacian.png" alt="&quot;shape&quot;"></p>
+<p>在细节过于丰富的场景中， <em>Canny Edge</em> 比 <em>Laplacian</em> 有更好的表现<br>
+<em>Origin</em><br>
+<img src="accessories/edgeOrigin.png" alt="&quot;edge&quot;"><br>
+<em>Laplacian</em><br>
+<img src="accessories/edgeLap.png" alt="&quot;edge&quot;"> <br>
+<em>Canny</em><br>
+<img src="accessories/edgeCanny.png" alt="&quot;edge&quot;">
+</p>
+<p><strong><em>Canny edge detector</em></strong>  采用两个阈值来确定目标边缘。首先，如果梯度灰值大于<em>high threshold value<em>,就将此处标记为强边缘点，检测器将从此点出发，知道检测到梯度灰值小于</em>low threshold value</em>。 增大<em>high threshold value</em> 会将弱边缘抛弃，过滤掉细节部分。
+</p>
+<p>一些常用的滤波<strong><em>Kernel</em></strong><br>
+<em>Motion Blur</em><br>
+使用这种滤波算子，能使图片呈现出运动拍摄的感觉<br>
+<a href="http://www.codecogs.com/eqnedit.php?latex=\begin{bmatrix}&amp;space;0&amp;space;&amp;&amp;space;0&amp;&amp;space;0\\&amp;space;1&amp;&amp;space;1&amp;space;&amp;1&amp;space;\\&amp;space;0&amp;&amp;space;0&amp;&amp;space;0&amp;space;\end{bmatrix}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?\begin{bmatrix}&amp;space;0&amp;space;&amp;&amp;space;0&amp;&amp;space;0\\&amp;space;1&amp;&amp;space;1&amp;space;&amp;1&amp;space;\\&amp;space;0&amp;&amp;space;0&amp;&amp;space;0&amp;space;\end{bmatrix}" title="\begin{bmatrix} 0 &amp; 0&amp; 0\\ 1&amp; 1 &amp;1 \\ 0&amp; 0&amp; 0 \end{bmatrix}"></a>
+</p>
+<p><em>Sharpening</em><br>
+锐化 </p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=M=\begin{bmatrix}&amp;space;-1&amp;space;&amp;&amp;space;-1&amp;space;&amp;&amp;space;-1\\&amp;space;-1&amp;&amp;space;9&amp;&amp;space;-1\\&amp;space;-1&amp;&amp;space;-1&amp;space;&amp;&amp;space;-1&amp;space;\end{bmatrix}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?M=\begin{bmatrix}&amp;space;-1&amp;space;&amp;&amp;space;-1&amp;space;&amp;&amp;space;-1\\&amp;space;-1&amp;&amp;space;9&amp;&amp;space;-1\\&amp;space;-1&amp;&amp;space;-1&amp;space;&amp;&amp;space;-1&amp;space;\end{bmatrix}" title="M=\begin{bmatrix} -1 &amp; -1 &amp; -1\\ -1&amp; 9&amp; -1\\ -1&amp; -1 &amp; -1 \end{bmatrix}"></a></p>
+      </section>
+    </div>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">OpenCV with Python by Example maintained by <a href="https://github.com/ilikeyml">ilikeyml</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+  </body>
+</html>

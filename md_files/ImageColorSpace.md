@@ -14,6 +14,7 @@ HSV(Hue, Saturation, Value)是根据颜色的直观特性由A. R. Smith在1978�
 亮度V通常用百分比度量，从0%（黑）到100%（白）。
 RGB和CMY颜色模型都是面向硬件的，而HSV（Hue Saturation Value）颜色模型是面向用户的。
 HSV模型的三维表示从RGB立方体演化而来。设想从RGB沿立方体对角线的白色顶点向黑色顶点观察，就可以看到立方体的六边形外形。六边形边界表示色彩，水平轴表示纯度，明度沿垂直轴测量。
+![Color Space]("accessories/HSV.jpg") 
 
 **三个图像空间可以通过OpenCV自带的函数进行转换**  
 数字图像处理中通常会对彩色图像进行分通道处理  
