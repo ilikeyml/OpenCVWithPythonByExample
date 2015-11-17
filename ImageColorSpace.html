@@ -59,7 +59,15 @@ OpenCV默认的通道顺序为B-G-R<br>
 <code>cv.imshow("B channel", B)</code><br>
 <code>cv.imshow("G channel", G)</code><br>
 <code>cv.imshow("R channel", R)</code><br>
-<img src="accessories/BGRSplit.png" alt="BGRSplit"></p>
+<img src="accessories/BGRSplit.png" alt="BGRSplit"><br>
+<strong>色彩空间转换</strong></p>
+<p><code>#BGR2YUV 转换</code><br>
+<code>img_YUVtrans = cv.cvtColor(img,cv.COLOR_BGR2YUV)</code><br>
+<code>cv.imshow("YUV mode", img_YUVtrans)</code><br>
+<code>#BGR2HSV 转换</code><br>
+<code>img_HSVtrans = cv.cvtColor(img, cv.COLOR_BGR2HSV)</code><br>
+<code>cv.imshow("HSV mode", img_HSVtrans)</code><br>
+<img src="accessories/colorSpace.png" alt="ColorSpace"></p>
       </section>
     </div>
     <!-- FOOTER  -->
