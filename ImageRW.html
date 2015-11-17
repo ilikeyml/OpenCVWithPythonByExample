@@ -17,7 +17,7 @@
     <div id="header_wrap" class="outer">
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/ilikeyml/OpenCVWithPythonByExample">View on GitHub</a>
-          <h1 id="project_title">OpenCV With Python By Example</h1>
+           <a href="http://ilikeyml.github.io/OpenCVWithPythonByExample/"><h1 id="project_title">OpenCV With Python By Example</h1></a>
           <h2 id="project_tagline">Build real-world computer vision applications and develop cool demos using OpenCV for Python</h2>
         </header>
     </div>
@@ -25,13 +25,25 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-
+<h2>图像文件读取、显示、保存</h2>
+<p><code># -*-coding:utf-8-*-</code><br>
+<code>'''
+实现图像读取、显示、图像保存
+'''</code><br>
+<code>import cv2 as cv</code>  <br>
+<code>img = cv.imread("../ImageSource/coffee.jpg")</code><br>
+<code>winName = "ImageShow"</code>    <br>
+<code>cv.imshow(winName, img)</code>    <br>
+<code>cv.imwrite("new_coffee.jpg", img)</code>    <br>
+<code>cv.waitKey(0)</code>  <br>
+运行完成后，在python文件的目录下回生成一个新文件<em>new_coffee.jpg</em><br>
+<img src="accessories/imageShow.png" alt="&quot;Image Show&quot;"></p>
       </section>
     </div>
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Opencvwithpythonbyexample maintained by <a href="https://github.com/ilikeyml">ilikeyml</a></p>
+        <p class="copyright">OpenCV with Python by Example maintained by <a href="https://github.com/ilikeyml">ilikeyml</a></p>
         <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
