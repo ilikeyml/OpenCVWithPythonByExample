@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Opencvwithpythonbyexample : Build real-world computer vision applications and develop cool demos using OpenCV for Python">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <title>OpenCV With Python By Example</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ilikeyml/OpenCVWithPythonByExample">View on GitHub</a>
+          <a href="http://ilikeyml.github.io/OpenCVWithPythonByExample/"><h1 id="project_title">OpenCV With Python By Example</h1></a>
+          <h2 id="project_tagline">Build real-world computer vision applications and develop cool demos using OpenCV for Python</h2>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+<h2>清晰图像的制作</h2>
+<p>清晰的图像是指能够清楚地反映被摄景物的明亮程度和细微的色彩差别的图像。对于难于体现亮度差别的图像，为使其清晰可见，采用增强对比度是简单而有效的方法。
+</p>
+<h4>增强对比度</h4>
+<p>图像明亮部分与黑暗部分的亮度比称为对比度 (Contrast)<br>
+对图像数据放大，可以得到增强图像的对比度
+</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=g(x,y)&amp;space;=&amp;space;n&amp;space;*&amp;space;f(x,y)" target="_blank"><img src="http://latex.codecogs.com/gif.latex?g(x,y)&amp;space;=&amp;space;n&amp;space;*&amp;space;f(x,y)" title="g(x,y) = n * f(x,y)"></a>
+</p>
+<p>超出255范围的像素值，OpenCV会自动处理（Value - 256）<br>
+更好的处理方式是使用直方图均衡化(Histogram Equlization)
+要把浓度直方图均衡化，只需把原图像中像素少的部分进行压缩，而将像素较多的部分拉伸开来。<br>
+下面，用一个简单的例子来说明平坦化的算法。先考虑浓度为0～7之处。平坦化后，各浓度像素值按照下面方式计算
+</p>
+<p><a href="http://www.codecogs.com/eqnedit.php?latex=Pixel&amp;space;Num&amp;space;For&amp;space;Each&amp;space;Grade&amp;space;=&amp;space;\frac{TotalPixels}{gradeNumCount}" target="_blank"><img src="http://latex.codecogs.com/gif.latex?Pixel&amp;space;Num&amp;space;For&amp;space;Each&amp;space;Grade&amp;space;=&amp;space;\frac{TotalPixels}{gradeNumCount}" title="Pixel Num For Each Grade = \frac{TotalPixels}{gradeNumCount}"></a>
+</p>
+<p>一种像素浓度所分配的像素数 = 所有像素数目之和/像素浓度级数之和
+</p>
+<table>
+   <tbody><tr>
+      <td>         浓度级</td>
+      <td>7</td>
+      <td>6</td>
+      <td>5</td>
+      <td>4</td>
+      <td>3</td>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <td>原图像的各级的像素数</td>
+      <td>0</td>
+      <td>4</td>
+      <td>9</td>
+      <td>11</td>
+      <td>5</td>
+      <td>7</td>
+      <td>4</td>
+      <td>0</td>
+   </tr>
+   <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+   </tr>
+   <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+   </tr>
+   <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+   </tr>
+   <tr>
+      <td>平坦化后的各级像素数</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+      <td>5</td>
+   </tr>
+</tbody></table>
+<p>所有像素数目之和 = 0+4+9+11+5+7+4+0 = 40<br>
+像素浓度级数之和 = 8<br>
+平坦化后的各级像素 = 40/8 = 5
+</p>
+<h4>灰度图像的均衡化</h4>
+<p><code>img = cv.imread("..\ImageSource\Sample\couple.bmp", 0)</code><br>
+<code>print img.shape</code><br>
+<code>cv.imshow("in", img)</code><br>
+<code>out = cv.equalizeHist(img)</code><br>
+<code>cv.imshow("out", out)</code> <br>
+<em>Origin</em> <br>
+<img src="accessories\histEqgreyIn.png" alt="&quot;Histeq&quot;"><br>
+<em>Histogram Equalization</em><br>
+<img src="accessories\histEqgreyOut.png" alt="&quot;Histeq&quot;"></p>
+<h4>彩色图像的均衡化</h4>
+<p>对于彩色图像，我们使用YUV空间，对V(亮度)分量进行输处理  <br>
+<code>#彩色图像对比度增强</code><br>
+<code>img_color = cv.imread("..\ImageSource\Sample\\airplane.bmp")</code><br>
+<code>print img_color.shape</code><br>
+<code>cv.imshow("img_color", img_color)</code><br>
+<code>img_colorYUV = cv.cvtColor(img_color, cv.COLOR_BGR2YUV)</code><br>
+<code>#对V亮度通道进行Histogram Equalization 处理</code><br>
+<code>img_colorYUV[:, :, 0] = cv.equalizeHist(img_colorYUV[:, :, 0])</code><br>
+<code>img_colorYUV_out = cv.cvtColor(img_colorYUV, cv.COLOR_YUV2BGR)</code><br>
+<code>cv.imshow("img_color_hist", img_colorYUV_out)</code>
+</p>
+<p><em>Origin</em> <br>
+<img src="accessories\histEqcolorIn.png" alt="&quot;Histeq&quot;"><br>
+<em>Histogram Equalization</em><br>
+<img src="accessories\histEqcolorOut.png" alt="&quot;Histeq&quot;"></p>
+      </section>
+    </div>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">OpenCV with Python by Example maintained by <a href="https://github.com/ilikeyml">ilikeyml</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+  </body>
+</html>
