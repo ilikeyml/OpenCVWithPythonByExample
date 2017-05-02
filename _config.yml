@@ -1,0 +1,8 @@
+title: Opencvwithpythonbyexample
+description: Build real-world computer vision applications and develop cool demos using OpenCV for Python
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-slate
+
+gems:
+  - jekyll-mentions
